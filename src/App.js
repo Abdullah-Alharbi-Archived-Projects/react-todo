@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { get, update, destroy } from './services/todos';
+import { create, get, update, destroy } from './services/todos';
 import Loading from './components/Loading';
 import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
+
 
 class App extends Component {
   state = {
@@ -40,6 +42,16 @@ class App extends Component {
     this.setState({ todos });
   }
 
+
+  handleAddTodo = async title => {
+    const todos = [...this.state.todos];
+    console.log(title)
+    // eslint-disable-next-line no-unused-vars
+    const { data: todo } = await create({ title, completed: false });
+    todos.push(todo);
+    this.setState({ todos });
+  };
+
   render() { 
     // state
     const { todos, loading } = this.state;
@@ -52,6 +64,9 @@ class App extends Component {
         {!loading && (
           <header className="App-header">
             <h1>Todo app</h1>
+            <div className="todos">
+              <AddTodo handleAddTodo={this.handleAddTodo} />
+            </div>
             <Todos todos={todos} toggleMark={toggleMark} handleDelete={destroy} />
           </header>
         )}

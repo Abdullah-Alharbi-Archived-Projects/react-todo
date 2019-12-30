@@ -1,14 +1,18 @@
 import React from 'react';
+import Delete from './Delete';
 
-// , actions: { toggleMark } }
-// onChange={() => toggleMark(id)}
-const Todo = ({ todo: { id, title, completed }}) => {
+const Todo = ({ todo: { id, title, completed }, toggleMark, handleDelete }) => {
     return (
-        <div className={`todo`}>
-            <input type="checkbox" id={id} name={id} />
-            <label htmlFor={id}>
-                <strong className={`${completed ? ' completed' : ''}`}>{title}</strong>
-            </label>
+        <div className='todo'>
+            <div className="todo-data">
+                <input type="checkbox" id={id} name={id} defaultChecked={completed} onClick={() => toggleMark(id)} />
+                <label htmlFor={id} className={`${completed ? 'completed' : ''}`}>
+                    {title}
+                </label>
+            </div>
+            <div className="actions">
+                <Delete id={id} handleDelete={handleDelete} />
+            </div>
         </div>
     );
 }

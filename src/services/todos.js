@@ -16,7 +16,7 @@ const create = todo => {
 }
 
 const update = (id, todo) => {
-    return axios.post(`${_API}/${id}`, todo);
+    return axios.patch(`${_API}/${id}`, todo);
 }
 
 const destroy = id => {
